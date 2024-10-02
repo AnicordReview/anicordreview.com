@@ -1,0 +1,38 @@
+[
+  {
+    "animeTitle": "Ex-Arm",
+    "season": "Fall 2024",
+    "type": "Trash",
+    "nsfw": false,
+    "medium": "Anime",
+    "title": "Ex-Arm (Anime)",
+    "author": "harewataru",
+    "description": "Fall 2024 Trash Special",
+    "image": "https://i.ibb.co/j4PqDWs/trash.jpg",
+    "link": "/reviews/review1.html"
+  },
+  {
+    "animeTitle": "ember testing",
+    "season": "Spring 2023",
+    "type": "Base",
+    "nsfw": true,
+    "medium": "Anime",
+    "title": "embeerr",
+    "author": "embersoasis",
+    "description": "description of this anime",
+    "image": "animepicture2.jpg",
+    "link": "review2.html"
+  },
+  {
+    "animeTitle": "Girls Band Cry",
+    "season": "Fall 2024",
+    "type": "Trash",
+    "nsfw": false,
+    "medium": "Manga",
+    "title": "Girls Band Cry",
+    "author": "harewataru",
+    "description": "cute girls!!1.",
+    "image": "animepicture2.jpg",
+    "link": "review3.html"
+  }
+]
