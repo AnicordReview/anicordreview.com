@@ -1,3 +1,4 @@
+//aaa
 document.addEventListener("DOMContentLoaded", () => {
     const searchBar = document.querySelector("#search-bar");
     const titleDropdown = document.querySelector("#filter-anime");
