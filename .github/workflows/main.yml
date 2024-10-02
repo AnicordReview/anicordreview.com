@@ -23,8 +23,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd /var/www/anicordreview.com
-          git pull origin main --force
+          cd /var/www/anicordreview.com/
+          git pull origin main
           git status
           npm install --only=prod
-         
