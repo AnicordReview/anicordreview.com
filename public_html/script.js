@@ -1,17 +1,19 @@
+document.addEventListener("DOMContentLoaded", function () {
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll); 
+});
+
 function revealOnScroll() {
-    const fadeIns = document.querySelectorAll('.fade-in');
-    const windowHeight = window.innerHeight;
-
-    fadeIns.forEach(element => {
+    const elements = document.querySelectorAll('.fade-in');
+    elements.forEach((element) => {
+        const windowHeight = window.innerHeight;
         const elementTop = element.getBoundingClientRect().top;
-        const offset = 150; 
+        const elementVisible = 150;
 
-        if (elementTop < windowHeight - offset) {
+        if (elementTop < windowHeight - elementVisible) {
             element.classList.add('show');
+        } else {
+            element.classList.remove('show');
         }
     });
 }
-
-//hallo
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', revealOnScroll);
