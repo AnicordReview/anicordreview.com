@@ -19,27 +19,45 @@
             </ul>
         </nav>
     </header>
+
     <section class="search-section">
-        <input type="text" placeholder="Search reviews..." class="search-bar">
+        <input type="text" id="search-bar" placeholder="Search reviews..." class="search-bar">
+        
+        <select id="filter-anime">
+            <option value="All">All Anime</option>
+        </select>
+        
+        <select id="filter-season">
+            <option value="All">All Seasons</option>
+        </select>
+        
+        <select id="filter-type">
+            <option value="All">All Types</option>
+        </select>
+      
+        <select id="filter-medium">
+            <option value="All">All Mediums</option>
+        </select>
+        
+        
+        <select id="filter-author">
+            <option value="All">All Authors</option>
+        </select>
+        
+        <label>
+            <input type="checkbox" id="filter-nsfw"> Show NSFW
+        </label>
     </section>
+
     <section class="reviews-page">
-        <div class="reviews-grid">
-            <div class="review-card">
-                <img src="animepichere.jpg" alt="Anime 1">
-                <h3>b</h3>
-                <p>bbbbbbbb</p>
-                <a href="#" class="read-more">Read more</a>
-            </div>
-            <div class="review-card">
-                <img src="animepicidk.jpg" alt="Anime 2">
-                <h3>test</h3>
-                <p>test</p>
-                <a href="#" class="read-more">Read more</a>
-            </div>
+        <div class="reviews-grid" id="reviews-container">
         </div>
     </section>
+
     <footer>
         <p>&copy; 2024 Anicord Reviews. All rights reserved.</p>
     </footer>
+
+    <script src="search.js"></script>
 </body>
 </html>
