@@ -34,6 +34,15 @@ header {
     transform: scale(1.05); 
 }
 
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fade-in.show {
+    opacity: 1;
+}
+
 nav ul {
     display: flex;
     list-style: none;
@@ -59,7 +68,7 @@ nav ul li a:hover {
 
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(255, 182, 193, 0.8), rgba(255, 105, 180, 0.8)), url('backgroundpicidk.jpg') no-repeat center center/cover;
+    background: linear-gradient(rgba(255, 182, 193, 0.8), rgba(255, 105, 180, 0.8)), url('your-anime-background-image.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -122,6 +131,7 @@ nav ul li a:hover {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin: 0 auto;
+    margin-bottom: 40px;
     max-width: 1000px; 
 }
 
@@ -154,6 +164,12 @@ nav ul li a:hover {
     font-size: 1rem;
     color: #555555;
     margin-bottom: 20px;
+}
+
+.review-author {
+    font-size: 1rem; 
+    color: #666666; 
+    margin-top: -0.7em; 
 }
 
 .read-more {
@@ -196,3 +212,6 @@ footer {
     text-align: center;
     color: #ffffff;
 }
+
+
+
