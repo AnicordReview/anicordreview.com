@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #fafafa;
+    color: #333333;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    background-color: #ff6b81;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1.2px;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.logo:hover {
+    color: #ffd1dc; 
+    transform: scale(1.05); 
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 30px;
+}
+
+nav ul li a:hover {
+    background-color: #ffffff;
+    color: #ff6b81;
+}
+
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(255, 182, 193, 0.8), rgba(255, 105, 180, 0.8)), url('backgroundpicidk.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero .content {
+    color: #ffffff;
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.cta-btn {
+    padding: 15px 40px;
+    background-color: #ff4757;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.cta-btn:hover {
+    background-color: #ff6b81;
+    transform: scale(1.05);
+}
+
+.reviews-page {
+    padding: 60px 10%;
+    background-color: #fdfdfd;
+    text-align: center;
+}
+
+.reviews {
+    margin-top: 20px; 
+    padding: 20px 0; 
+}
+
+.reviews h2 {
+    font-size: 3rem; 
+    color: #ff4757;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 0 auto;
+    max-width: 1000px; 
+}
+
+.review-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.review-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.review-card img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.review-card h3 {
+    font-size: 1.6rem;
+    color: #ff4757;
+    margin-bottom: 10px;
+}
+
+.review-card p {
+    font-size: 1rem;
+    color: #555555;
+    margin-bottom: 20px;
+}
+
+.read-more {
+    text-decoration: none;
+    color: #ff4757;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.read-more:hover {
+    color: #ff6b81;
+}
+
+.search-section {
+    text-align: center;
+    margin: 40px 0; 
+}
+
+.search-bar {
+    width: 50%;
+    padding: 15px;
+    border: 2px solid #ff6b81;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.search-bar::placeholder {
+    color: #ff6b81; 
+}
+
+.search-bar:focus {
+    border-color: #ff4757; 
+}
+
+footer {
+    padding: 20px;
+    background-color: #ff4757;
+    text-align: center;
+    color: #ffffff;
+}
