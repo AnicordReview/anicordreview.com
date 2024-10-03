@@ -232,19 +232,32 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-select {
-    appearance: none; 
-    width: 200px; 
+.search-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0; 
+}
+
+.search-bar {
+    width: 30%;
     padding: 10px;
-    border: 2px solid #ff6b81; 
+    border: 2px solid #ff6b81;
     border-radius: 25px;
-    background-color: #ffffff;
-    color: #ff4757; 
     font-size: 1rem;
     outline: none;
-    cursor: pointer;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    font-family: 'Montserrat', sans-serif;
+    transition: border-color 0.3s;
+    margin-right: 10px;
+}
+
+select {
+    padding: 10px;
+    border: 2px solid #ff6b81;
+    border-radius: 25px;
+    margin-right: 10px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #333;
 }
 
 select:hover, 
