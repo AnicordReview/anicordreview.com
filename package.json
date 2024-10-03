@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "discord-interactions": "^4.1.0",
     "express": "^4.21.0"
   }
 }
