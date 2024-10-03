@@ -20,3 +20,6 @@ app.get('/api/discord-auth',verifyKeyMiddleware('aea759dc26e8c1778a99e67e32cf261
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
 })
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public_html', 'index.html'));  // Serve index.html
+});
