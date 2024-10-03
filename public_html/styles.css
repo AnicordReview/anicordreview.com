@@ -257,7 +257,8 @@ select {
     margin-right: 10px;
     font-size: 1rem;
     background-color: #ffffff;
-    color: #333;
+    color: #333333;
+    transition: border-color 0.3s, box-shadow 0.3s; 
 }
 
 select:hover, 
@@ -266,9 +267,21 @@ select:focus {
     box-shadow: 0 0 10px rgba(255, 105, 180, 0.3); 
 }
 
+select:invalid {
+    border-color: #ff6b81; 
+}
+
+select option[value="All"] {
+    color: #ff6b81; 
+}
+
+select:focus option {
+    color: #333333;
+}
 
 label {
     font-size: 1rem;
     color: #ff4757; 
     margin-left: 10px;
 }
+
