@@ -15,7 +15,17 @@ app.use((req, res, next) => {
     next();
 });
 
+router.post('/discord-auth', verifyKeyMiddleware('your-key-here'), (req, res) => {
+    const interaction = req.body;
+    if (interaction.type === 1) {
+        return res.json({ type: 1 });
+    }
+    return res.json({ type: 4, data: { content: 'test' } });
+});
 
+router.get('/test', (req, res) => {
+    res.json({ message: 'API test endpoint' });
+});
 
 // Static file serving
 app.use(express.static(path.join(rootDir, 'public_html')));
