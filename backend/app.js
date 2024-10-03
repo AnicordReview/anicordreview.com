@@ -39,7 +39,7 @@ app.get('/api/auth/discord', async (req, res) => {
                 }
             })
 
-            res.json({...output.data, ...userinfo.data})
+           console.log(output.data,userinfo.data)
         }
     }
 
