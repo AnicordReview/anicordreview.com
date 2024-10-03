@@ -4,8 +4,8 @@ const path = require('path');
 const app = express()
 
 const PORT = 3000
-
-app.use(express.static(path.join(__dirname, 'public_html')));
+const parentDir = path.join(__dirname, '..');
+app.use(express.static(path.join(parentDir, 'public_html')));
 app.use(express.json()); 
 app.use(express.static('public'));  
 
@@ -21,5 +21,5 @@ app.listen(PORT, '0.0.0.0', () => {
     console.log(`Example app listening at http://localhost:${PORT}`)
 })
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public_html', 'index.html'));  // Serve index.html
-});
+    res.sendFile(path.join(parentDir, 'public_html', 'index.html'));  // Serve index.html
+    });
