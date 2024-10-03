@@ -257,7 +257,7 @@ select {
     margin-right: 10px;
     font-size: 1rem;
     background-color: #ffffff;
-    color: #333333;
+    color: #333333; 
     transition: border-color 0.3s, box-shadow 0.3s; 
 }
 
@@ -267,15 +267,15 @@ select:focus {
 }
 
 select option {
-    color: #333333;
+    color: #333333; 
 }
 
 select option[value="All"] {
-    color: #ff6b81; 
+    color: #333333; 
 }
 
-select:focus option[value="All"] {
-    color: #333333;
+select:focus option {
+    color: #333333; 
 }
 
 label {
