@@ -6,15 +6,14 @@ const PORT = 3000;
 // Define the root directory path
 const rootDir = path.join(__dirname, '..');
 
+// Import the router
+const apiRouter = require('./routes'); // Adjust the path if necessary
 
-
-router.get('/test', (req, res) => {
-    res.json({ message: 'API test endpoint' });
-});
+// Use the router
+app.use('/api', apiRouter); // Prefix the routes with /api
 
 // Static file serving
 app.use(express.static(path.join(rootDir, 'public_html')));
-
 
 // Start the server
 app.listen(PORT, '0.0.0.0', () => {
