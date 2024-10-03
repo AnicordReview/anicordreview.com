@@ -13,8 +13,35 @@ app.get('/api/test', (req, res) => {
     res.send('hi');
 });
 
-app.get('/api/discord-auth', (req, res) => {
-    res.json(1);
+app.get('/api/auth/discord', async (req, res) => {
+    const {code} = req.query;
+
+    if (code){
+        const formData = new url.URLSearchParams({
+            client_id: process.env.ClientID,
+            client_secret: process.env.ClientSecret,
+            grant_type: 'authorization_code',
+            code: code.toString(),
+            redirect_url: 'https://anicordreview.com/api/auth/discord'
+        })
+
+        const output = await axios.post('https://discord.com/api/v10/oauth2/token',{
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
+        if (output.data) {
+            const access = output.data.access_token
+
+            const userinfo = await axios.get('https://discord.com/api/v10/users/@me', {
+                headers: {
+                    'Authorization': `Bearer ${access}`
+                }
+            })
+
+            res.json(output.data,userinfo.data)
+        }
+    }
 
     // Handle the discord authentication
 });
