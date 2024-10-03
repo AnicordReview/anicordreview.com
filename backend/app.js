@@ -5,7 +5,7 @@ const app = express()
 const PORT = 3000
 
 
-
+app.use(express.json()); 
 
 app.get('/api/discord-auth',verifyKeyMiddleware('aea759dc26e8c1778a99e67e32cf261489fbba6e53e3139f9822f34bf47df1ee'), (req, res) => {
     const interaction = req.body;
