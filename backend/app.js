@@ -15,11 +15,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// API routes
-app.use('/api', require('./routes/api'));
 
-// Dynamic routes
-app.use('/', require('./routes/dynamic'));
 
 // Static file serving
 app.use(express.static(path.join(rootDir, 'public_html')));
