@@ -252,7 +252,7 @@ header {
 
 select {
     padding: 10px;
-    border: 2px solid #ff6b81;
+    border: 2px solid #333333;
     border-radius: 25px;
     margin-right: 10px;
     font-size: 1rem;
@@ -267,7 +267,11 @@ select:focus {
 }
 
 select option {
-    color: #333333;
+    color: #333333; 
+}
+
+select option[value="All"] {
+    color: #ff6b81; 
 }
 
 label {
