@@ -1,16 +1,15 @@
 const express = require('express');
 const path = require('path');
+const apiRouter = require('./routes'); // Adjust the path as necessary
+
 const app = express();
 const PORT = 3000;
 
 // Define the root directory path
 const rootDir = path.join(__dirname, '..');
 
-// Import the router
-const apiRouter = require('./routes'); // Adjust the path if necessary
-
-// Use the router
-app.use('/api', apiRouter); // Prefix the routes with /api
+// Use the router for API endpoints
+app.use('/api', apiRouter);
 
 // Static file serving
 app.use(express.static(path.join(rootDir, 'public_html')));
