@@ -1,13 +1,15 @@
 document.querySelectorAll('select').forEach(select => {
-    select.addEventListener('change', function() {
-        const allOptions = this.querySelectorAll('option');
-        allOptions.forEach(option => {
-            if (option.value === "All") {
-                option.style.color = "#ff6b81";
-            } else {
-                option.style.color = "#333333";
-            }
-        });
-        this.style.borderColor = this.value === "All" ? "#ff6b81" : "#000000";
+    select.addEventListener('change', function () {
+        if (this.value === "All") {
+            this.style.borderColor = '#ff6b81';
+        } else {
+            this.style.borderColor = '#333333'; 
+        }
     });
+    
+    if (select.value === "All") {
+        select.style.borderColor = '#ff6b81'; 
+    } else {
+        select.style.borderColor = '#333333'; 
+    }
 });

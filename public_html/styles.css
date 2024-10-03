@@ -267,15 +267,7 @@ select:focus {
 }
 
 select option {
-    color: #333333; 
-}
-
-select option[value="All"] {
-    color: #333333; 
-}
-
-select:focus option {
-    color: #333333; 
+    color: #333333;
 }
 
 label {
@@ -283,5 +275,6 @@ label {
     color: #ff4757; 
     margin-left: 10px;
 }
+
 
 
