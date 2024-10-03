@@ -19,12 +19,22 @@ app.post('/api/discord-auth', verifyKeyMiddleware('aea759dc26e8c1778a99e67e32cf2
     return res.json({ type: 4, data: { content: 'test' } }); // Respond with type 4
 });
 
+// Add a GET route for testing purposes
+app.get('/api/discord-auth', (req, res) => {
+    res.json({ message: 'GET request received for /api/discord-auth' });
+});
+
 // Middleware for serving static files
 app.use(express.static(path.join(parentDir, 'public_html')));
 
 // Serve the index.html for the root path
 app.get('/', (req, res) => {
     res.sendFile(path.join(parentDir, 'public_html', 'index.html'));
+});
+
+// Catch-all route for API requests
+app.use('/api', (req, res) => {
+    res.status(404).json({ error: 'API endpoint not found' });
 });
 
 // Start the server
