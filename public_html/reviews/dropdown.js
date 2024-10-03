@@ -1,14 +1,15 @@
 document.querySelectorAll('select').forEach(select => {
     select.addEventListener('change', function () {
-        const options = this.options;
-        for (let i = 0; i < options.length; i++) {
-            options[i].style.color = '#333333'; 
+        if (this.value === "All") {
+            this.style.borderColor = '#ff6b81';
+        } else {
+            this.style.borderColor = '#333333'; 
         }
-        options[this.selectedIndex].style.color = '#333333';
     });
-
-    const options = select.options;
-    for (let i = 0; i < options.length; i++) {
-        options[i].style.color = '#333333'; 
+    
+    if (select.value === "All") {
+        select.style.borderColor = '#ff6b81'; 
+    } else {
+        select.style.borderColor = '#333333'; 
     }
 });
