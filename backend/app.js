@@ -1,5 +1,8 @@
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
+const axios = require('axios');
+const url = require('url');
 const app = express();
 const PORT = 3000;
 
@@ -12,6 +15,8 @@ app.get('/api/test', (req, res) => {
 
 app.get('/api/discord-auth', (req, res) => {
     res.json(1);
+
+    // Handle the discord authentication
 });
 
 app.listen(PORT, '0.0.0.0', () => {
