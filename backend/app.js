@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 const rootDir = path.join(__dirname, '..'); 
-app.use(express.static(path.join(rootDir, 'public')));
+app.use(express.static(path.join(rootDir, 'public_html')));
 
 app.get('/api/test', (req, res) => {
     res.send('hi');
