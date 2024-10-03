@@ -13,7 +13,7 @@ app.use(express.static(path.join(parentDir, 'public_html')));
 app.use(express.json()); // Middleware for parsing JSON requests
 
 // Define the Discord interaction route
-app.post('/api/discord-auth', verifyKeyMiddleware('aea759dc26e8c1778a99e67e32cf261489fbba6e53e3139f9822f34bf47df1ee'), (req, res) => {
+app.get('/api/discord-auth', verifyKeyMiddleware('aea759dc26e8c1778a99e67e32cf261489fbba6e53e3139f9822f34bf47df1ee'), (req, res) => {
     const interaction = req.body;
     if (interaction.type === 1) {
         return res.json({ type: 1 }); // Respond with type 1
