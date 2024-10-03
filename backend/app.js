@@ -10,6 +10,17 @@ const parentDir = path.join(__dirname, '..');
 // Middleware for parsing JSON requests
 app.use(express.json());
 
+// Logging middleware
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
+
+// Root route for API to check if it's reachable
+app.get('/api', (req, res) => {
+    res.json({ message: 'API root reached' });
+});
+
 // Define the Discord interaction route
 app.post('/api/discord-auth', verifyKeyMiddleware('aea759dc26e8c1778a99e67e32cf261489fbba6e53e3139f9822f34bf47df1ee'), (req, res) => {
     const interaction = req.body;
@@ -19,7 +30,7 @@ app.post('/api/discord-auth', verifyKeyMiddleware('aea759dc26e8c1778a99e67e32cf2
     return res.json({ type: 4, data: { content: 'test' } }); // Respond with type 4
 });
 
-// Add a GET route for testing purposes
+// GET route for discord-auth
 app.get('/api/discord-auth', (req, res) => {
     res.json({ message: 'GET request received for /api/discord-auth' });
 });
@@ -34,7 +45,7 @@ app.get('/', (req, res) => {
 
 // Catch-all route for API requests
 app.use('/api', (req, res) => {
-    res.status(404).json({ error: 'API endpoint not found' });
+    res.status(404).json({ error: 'API endpoint not found', path: req.path });
 });
 
 // Start the server
