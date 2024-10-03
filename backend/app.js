@@ -9,7 +9,7 @@ const PORT = 3000;
 const rootDir = path.join(__dirname, '..');
 
 // Use the router for API endpoints
-app.use('/api', apiRouter);
+app.use('api', apiRouter);
 
 // Static file serving
 app.use(express.static(path.join(rootDir, 'public_html')));
