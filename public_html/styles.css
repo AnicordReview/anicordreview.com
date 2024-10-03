@@ -262,19 +262,20 @@ select {
 }
 
 select:focus {
-    border-color: black; 
+    border-color: #ff4757; 
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.3); 
 }
 
-select[data-default="true"] {
-    border-color: #ff6b81; 
-}
-
-select:not([data-default="true"]) {
-    border-color: black; 
+select option {
+    color: #333333;
 }
 
 select option[value="All"] {
     color: #ff6b81; 
+}
+
+select:focus option[value="All"] {
+    color: #333333;
 }
 
 label {
@@ -282,4 +283,5 @@ label {
     color: #ff4757; 
     margin-left: 10px;
 }
+
 
