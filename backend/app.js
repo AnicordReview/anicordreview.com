@@ -2,11 +2,13 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config({ path: __dirname + '/.env' });
 const axios = require('axios');
+const qs = require('qs'); // Import qs to handle URL-encoded data
+const app = express(); // Initialize the 'app' first
+const PORT = 3000;
+
+// Now you can require the Database and initialize it with the app
 const Database = require('./data');
 const database = new Database(app);
-const qs = require('qs'); // Import qs to handle URL-encoded data
-const app = express();
-const PORT = 3000;
 
 const rootDir = path.join(__dirname, '..'); 
 app.use(express.static(path.join(rootDir, 'public_html')));
@@ -54,13 +56,17 @@ app.get('/api/auth/discord', async (req, res) => {
             const isInGuild = userGuilds.data.some(guild => guild.id === '994071728017899600');
 
             if (isInGuild) {
-                res.send({ user: userinfo.data,access:output.data, message: 'User is in the guild.' });
+                res.send({ user: userinfo.data, access: output.data, message: 'User is in the guild.' });
                 const userAlreadyExists = await database.getUser(userinfo.data.id);
-                
+
                 if (userAlreadyExists) {
                     res.send({ user: userinfo.data, db_msg: 'User already exists in the database.' });
                 } else {
-                    const userData = {id:userinfo.data.id, access_key:output.data.access_token, refresh_token:output.data.refresh_token};
+                    const userData = {
+                        id: userinfo.data.id,
+                        access_key: output.data.access_token,
+                        refresh_token: output.data.refresh_token
+                    };
                     await database.addUser(userData);
 
                     res.send({ user: userinfo.data, db_msg: 'User has been added to the database.' });
