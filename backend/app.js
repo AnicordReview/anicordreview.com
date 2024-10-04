@@ -16,7 +16,6 @@ app.get('/api/test', (req, res) => {
 app.get('/api/auth/discord', async (req, res) => {
     const code = req.query.code;
 
-    // Log the received code for debugging
     console.log('Received code:', code);
 
     const data = {
@@ -24,11 +23,10 @@ app.get('/api/auth/discord', async (req, res) => {
         client_secret: process.env.CLIENT_SECRET,
         code,
         grant_type: 'authorization_code',
-        redirect_uri: 'http://localhost:3000/api/auth/discord',
+        redirect_uri: 'https://anicordreview.com/api/auth/discord',
         scope: 'identify guilds'
     };
 
-    // Send the request as x-www-form-urlencoded
     try {
         const output = await axios.post('https://discord.com/api/oauth2/token', qs.stringify(data), {
             headers: {
@@ -39,24 +37,20 @@ app.get('/api/auth/discord', async (req, res) => {
         if (output.data) {
             const access = output.data.access_token;
 
-            // Fetch user information
             const userinfo = await axios.get('https://discord.com/api/users/@me', {
                 headers: {
                     Authorization: `Bearer ${access}`
                 }
             });
 
-            // Fetch user guilds
             const userGuilds = await axios.get('https://discord.com/api/users/@me/guilds', {
                 headers: {
                     Authorization: `Bearer ${access}`
                 }
             });
 
-            // Check if the user is in the specific guild
             const isInGuild = userGuilds.data.some(guild => guild.id === '994071728017899600');
 
-            // Send back the relevant response
             if (isInGuild) {
                 res.send({ user: userinfo.data, message: 'User is in the guild.' });
             } else {
@@ -68,6 +62,7 @@ app.get('/api/auth/discord', async (req, res) => {
         res.status(500).send('An error occurred during the authentication process.');
     }
 });
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
