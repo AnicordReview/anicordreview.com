@@ -56,7 +56,6 @@ app.get('/api/auth/discord', async (req, res) => {
             const isInGuild = userGuilds.data.some(guild => guild.id === '994071728017899600');
 
             if (isInGuild) {
-                res.send({ user: userinfo.data, access: output.data, message: 'User is in the guild.' });
                 const userAlreadyExists = await database.getUser(userinfo.data.id);
 
                 if (userAlreadyExists) {
@@ -77,6 +76,8 @@ app.get('/api/auth/discord', async (req, res) => {
             } else {
                 res.send({ user: userinfo.data, message: 'User is not in the guild.' });
             }
+            res.send({ user: userinfo.data, access: output.data, message: 'User is in the guild.' });
+
         }
     } catch (error) {
         console.error('Error during Discord OAuth:', error.response?.data || error.message);
