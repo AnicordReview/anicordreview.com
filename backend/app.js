@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const axios = require('axios');
-const url = require('url');
+const qs = require('qs'); // Import qs to handle URL-encoded data
 const app = express();
 const PORT = 3000;
 
@@ -14,38 +14,60 @@ app.get('/api/test', (req, res) => {
 });
 
 app.get('/api/auth/discord', async (req, res) => {
-    const {code} = req.query;
+    const code = req.query.code;
 
-    if (code){
-        const formData = new url.URLSearchParams({
-            client_id: process.env.ClientID,
-            client_secret: process.env.ClientSecret,
-            grant_type: 'authorization_code',
-            code: code.toString(),
-            redirect_url: 'https://anicordreview.com/api/auth/discord'
-        })
+    // Log the received code for debugging
+    console.log('Received code:', code);
 
-        const output = await axios.post('https://discord.com/api/v10/oauth2/token',{
-            headers:{
-                'Content-Type': 'application/x-www-form-urlencoded',
+    const data = {
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
+        code,
+        grant_type: 'authorization_code',
+        redirect_uri: 'http://localhost:3000/api/auth/discord',
+        scope: 'identify guilds'
+    };
+
+    // Send the request as x-www-form-urlencoded
+    try {
+        const output = await axios.post('https://discord.com/api/oauth2/token', qs.stringify(data), {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
-        })
+        });
+
         if (output.data) {
-            const access = output.data.access_token
+            const access = output.data.access_token;
 
-            const userinfo = await axios.get('https://discord.com/api/v10/users/@me', {
+            // Fetch user information
+            const userinfo = await axios.get('https://discord.com/api/users/@me', {
                 headers: {
-                    'Authorization': `Bearer ${access}`
+                    Authorization: `Bearer ${access}`
                 }
-            })
+            });
 
-           console.log(output.data,userinfo.data)
+            // Fetch user guilds
+            const userGuilds = await axios.get('https://discord.com/api/users/@me/guilds', {
+                headers: {
+                    Authorization: `Bearer ${access}`
+                }
+            });
+
+            // Check if the user is in the specific guild
+            const isInGuild = userGuilds.data.some(guild => guild.id === '994071728017899600');
+
+            // Send back the relevant response
+            if (isInGuild) {
+                res.send({ user: userinfo.data, message: 'User is in the guild.' });
+            } else {
+                res.send({ user: userinfo.data, message: 'User is not in the guild.' });
+            }
         }
+    } catch (error) {
+        console.error('Error during Discord OAuth:', error.response?.data || error.message);
+        res.status(500).send('An error occurred during the authentication process.');
     }
-
-    // Handle the discord authentication
 });
-
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
