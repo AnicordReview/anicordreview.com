@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config({ path: __dirname + '/.env' });
 const axios = require('axios');
+const database = require('./data');
 const qs = require('qs'); // Import qs to handle URL-encoded data
 const app = express();
 const PORT = 3000;
@@ -53,6 +54,15 @@ app.get('/api/auth/discord', async (req, res) => {
 
             if (isInGuild) {
                 res.send({ user: userinfo.data, message: 'User is in the guild.' });
+                const userAlreadyExists = await database.getUser(userinfo.data.id);
+
+                if (userAlreadyExists) {
+                    res.send({ user: userinfo.data, message: 'User already exists in the database.' });
+                } else {
+                    await database.addUser(userinfo.data);
+
+                    res.send({ user: userinfo.data, message: 'User has been added to the database.' });
+                }
             } else {
                 res.send({ user: userinfo.data, message: 'User is not in the guild.' });
             }
