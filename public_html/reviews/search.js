@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
             uniqueAuthors.add(review.author);
         });
 
-        titleDropdown.innerHTML = '<option value="All">All Anime</option>';
+        titleDropdown.innerHTML = '<option value="All">All Series</option>';
         uniqueTitles.forEach(title => {
             titleDropdown.innerHTML += `<option value="${title}">${title}</option>`;
         });
