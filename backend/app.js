@@ -57,9 +57,8 @@ app.get('/api/auth/discord', async (req, res) => {
 
             if (isInGuild) {
                 const userAlreadyExists = await database.getUser(userinfo.data.id);
-
+                console.log(userAlreadyExists)
                 if (userAlreadyExists) {
-                    res.send({ user: userinfo.data, db_msg: 'User already exists in the database.' });
                 } else {
                     const userData = {
                         id: userinfo.data.id,
@@ -68,11 +67,11 @@ app.get('/api/auth/discord', async (req, res) => {
                     };
                     await database.addUser(userData);
 
-                    res.send({ user: userinfo.data, db_msg: 'User has been added to the database.' });
+                   console.log("added user")
                     
                 }
                     const userFromDB = await database.getUser(userinfo.data.id);
-                    res.send({ user: userinfo.data, msg_mm: 'User has been added to the database.', userFromDB });
+                    console.log("user in db", userFromDB)
             } else {
                 res.send({ user: userinfo.data, message: 'User is not in the guild.' });
             }
