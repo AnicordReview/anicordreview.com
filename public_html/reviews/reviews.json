@@ -1,17 +1,5 @@
 [
   {
-    "animeTitle": "Ex-Arm",
-    "season": "Fall 2024",
-    "type": "Trash",
-    "nsfw": false,
-    "medium": "Anime",
-    "title": "Ex-Arm (Anime)",
-    "author": "harewataru",
-    "description": "Fall 2024 Trash Special",
-    "image": "https://i.ibb.co/j4PqDWs/trash.jpg",
-    "link": "/reviews/ex-arm-harewataru"
-  },
-  {
     "animeTitle": "ember testing",
     "season": "Spring 2023",
     "type": "Base",
@@ -34,5 +22,17 @@
     "description": "cute girls!!1.",
     "image": "animepicture2.jpg",
     "link": "review3.html"
+  },
+  {
+    "animeTitle": "Ex-Arm",
+    "season": "Fall 2024",
+    "type": "Trash",
+    "nsfw": false,
+    "medium": "Anime",
+    "title": "Ex-Arm (Anime)",
+    "author": "harewataru",
+    "description": "Fall 2024 Trash Special",
+    "image": "https://i.ibb.co/j4PqDWs/trash.jpg",
+    "link": "/reviews/ex-arm-harewataru"
   }
 ]

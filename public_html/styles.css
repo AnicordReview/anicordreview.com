@@ -257,7 +257,7 @@ select {
     margin-right: 10px;
     font-size: 1rem;
     background-color: #ffffff;
-    color: #333333; 
+    color: #333333;
     transition: border-color 0.3s, box-shadow 0.3s; 
 }
 
@@ -271,7 +271,7 @@ select option {
 }
 
 select option[value="All"] {
-    color: #ff6b81; 
+    color: #333333; 
 }
 
 label {
@@ -279,6 +279,7 @@ label {
     color: #ff4757; 
     margin-left: 10px;
 }
+
 
 
 
