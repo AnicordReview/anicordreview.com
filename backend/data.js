@@ -12,6 +12,10 @@ class Database {
   getUser(id){
     return this.db.get('SELECT * FROM users WHERE id = ?', id)
   }
+  addUser(data){
+    return this.db.run('INSERT INTO users (id, access_key, refresh_token) VALUES (?, ?, ?)', data.id, data.access_key, data.refresh_token)
+    
+  }
 }
 
 module.exports = Database
