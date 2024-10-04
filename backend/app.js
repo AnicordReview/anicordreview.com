@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config({ path: __dirname + '/.env' });
 const axios = require('axios');
-const database = require('./data');
+const database = new require('./data');
 const qs = require('qs'); // Import qs to handle URL-encoded data
 const app = express();
 const PORT = 3000;
