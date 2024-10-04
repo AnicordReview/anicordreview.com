@@ -73,7 +73,7 @@ app.get('/api/auth/discord', async (req, res) => {
                     
                 }
                     const userFromDB = await database.getUser(userinfo.data.id);
-                    res.send({ user: userinfo.data, db_msg: 'User has been added to the database.', userFromDB });
+                    res.send({ user: userinfo.data, msg_mm: 'User has been added to the database.', userFromDB });
             } else {
                 res.send({ user: userinfo.data, message: 'User is not in the guild.' });
             }
