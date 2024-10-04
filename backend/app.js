@@ -3,12 +3,12 @@ const path = require('path');
 require('dotenv').config({ path: __dirname + '/.env' });
 const axios = require('axios');
 const qs = require('qs'); // Import qs to handle URL-encoded data
-const app = express(); // Initialize the 'app' first
+const app = express();
 const PORT = 3000;
 
-// Now you can require the Database and initialize it with the app
 const Database = require('./data');
-const database = new Database(app);
+const database = new Database(app); // Database is initialized after the app is created
+
 
 const rootDir = path.join(__dirname, '..'); 
 app.use(express.static(path.join(rootDir, 'public_html')));
