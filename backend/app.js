@@ -2,7 +2,8 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config({ path: __dirname + '/.env' });
 const axios = require('axios');
-const database = new require('./data');
+const Database = require('./data');
+const database = new Database(app);
 const qs = require('qs'); // Import qs to handle URL-encoded data
 const app = express();
 const PORT = 3000;
@@ -53,20 +54,19 @@ app.get('/api/auth/discord', async (req, res) => {
             const isInGuild = userGuilds.data.some(guild => guild.id === '994071728017899600');
 
             if (isInGuild) {
-                res.send({ user: userinfo.data,access:output.data, message: 'User is in the guild.' });
                 const userAlreadyExists = await database.getUser(userinfo.data.id);
-                
+            
                 if (userAlreadyExists) {
                     res.send({ user: userinfo.data, message: 'User already exists in the database.' });
                 } else {
-                    const userData = {id:userinfo.data.id, access_key:output.data.access_token, refresh_token:output.data.refresh_token};
+                    const userData = { id: userinfo.data.id, access_key: output.data.access_token, refresh_token: output.data.refresh_token };
                     await database.addUser(userData);
-
                     res.send({ user: userinfo.data, message: 'User has been added to the database.' });
                 }
             } else {
                 res.send({ user: userinfo.data, message: 'User is not in the guild.' });
             }
+            
         }
     } catch (error) {
         console.error('Error during Discord OAuth:', error.response?.data || error.message);
