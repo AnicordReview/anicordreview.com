@@ -23,42 +23,20 @@ app.use(session({
 app.get('/api/test', (req, res) => {
     res.send('hi');
 });
-app.get('/api/account', async (req, res) => {
-    if (!req.session.user) {
-        return res.status(401).json({ message: 'Unauthorized. Please log in.' });
-    }
-
-    try {
-        const user = await database.getUser(req.session.user.id);
-        
-        if (!user) {
-            return res.status(404).json({ message: 'User not found in the database.' });
-        }
-
-        const accountingData = {
-            
-        };
-
-        res.json({ accountingData });
-    } catch (error) {
-        console.error('Error fetching accounting data:', error.message);
-        res.status(500).json({ message: 'An error occurred while retrieving the account information.' });
-    }
-});
-
-app.get('/api/auth/discord/start', (req, res) => {
-    const lastPage = req.get('Referer') || '/';
-    req.session.lastPage = lastPage;
-
-    const discordAuthUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${encodeURIComponent('https://anicordreview.com/api/auth/discord')}&response_type=code&scope=identify guilds`;
-    res.redirect(discordAuthUrl);
-});
-
 
 app.get('/api/auth/discord', async (req, res) => {
     const code = req.query.code;
 
-    // Discord OAuth process (same as before)
+    console.log('Received code:', code);
+
+    const data = {
+        client_id: process.env.CLIENT_ID,
+        client_secret: process.env.CLIENT_SECRET,
+        code,
+        grant_type: 'authorization_code',
+        redirect_uri: 'https://anicordreview.com/api/auth/discord',
+        scope: 'identify guilds'
+    };
 
     try {
         const output = await axios.post('https://discord.com/api/oauth2/token', qs.stringify(data), {
@@ -78,14 +56,12 @@ app.get('/api/auth/discord', async (req, res) => {
                 refresh_token: refresh
             };
 
-            // Fetch user info from Discord
             const userinfo = await axios.get('https://discord.com/api/users/@me', {
                 headers: {
                     Authorization: `Bearer ${access}`
                 }
             });
 
-            // Fetch guilds (same logic as before)
             const userGuilds = await axios.get('https://discord.com/api/users/@me/guilds', {
                 headers: {
                     Authorization: `Bearer ${access}`
@@ -95,8 +71,8 @@ app.get('/api/auth/discord', async (req, res) => {
             const isInGuild = userGuilds.data.some(guild => guild.id === '994071728017899600');
 
             if (isInGuild) {
-                // Add or update user in DB (same as before)
                 const userAlreadyExists = await database.getUser(userinfo.data.id);
+                console.log(userAlreadyExists);
                 if (!userAlreadyExists) {
                     const userData = {
                         id: userinfo.data.id,
@@ -104,15 +80,19 @@ app.get('/api/auth/discord', async (req, res) => {
                         refresh_token: refresh
                     };
                     await database.addUser(userData);
+                    console.log("Added user");
                 }
-
+                
+                // Update session with user ID
                 req.session.user.id = userinfo.data.id;
+                
+                const userFromDB = await database.getUser(userinfo.data.id);
+                console.log("User in DB", userFromDB);
 
-                // Redirect to the last page they were on before login
-                const redirectUrl = req.session.lastPage || '/';
-                res.redirect(redirectUrl);
+                // Send user data and access tokens in the response
+                res.send({ user: userinfo.data, access: output.data, message: 'User is in the guild.' });
             } else {
-                res.redirect('/not-in-guild'); // Handle not-in-guild case
+                res.send({ user: userinfo.data, message: 'User is not in the guild.' });
             }
         }
     } catch (error) {
@@ -120,7 +100,6 @@ app.get('/api/auth/discord', async (req, res) => {
         res.status(500).send('An error occurred during the authentication process.');
     }
 });
-
 
 // Token refresh route
 app.post('/api/auth/refresh', async (req, res) => {
