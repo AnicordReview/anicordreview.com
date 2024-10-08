@@ -17,8 +17,12 @@ app.use(session({
     secret: process.env.CLIENT_SECRET, 
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true } // Set to false if not using HTTPS
+    cookie: {
+        secure: true,
+        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days in milliseconds
+    }
 }));
+
 
 app.get('/api/test', (req, res) => {
     res.send('hi');
