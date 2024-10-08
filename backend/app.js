@@ -104,6 +104,19 @@ app.get('/api/auth/discord', async (req, res) => {
         res.status(500).send('An error occurred during the authentication process.');
     }
 });
+app.get('/api/session/check', (req, res) => {
+    if (req.session.user) {
+        res.send({
+            loggedIn: true,
+            session: req.session.user
+        });
+    } else {
+        res.send({
+            loggedIn: false,
+            message: 'No user session found.'
+        });
+    }
+});
 
 // Token refresh route
 app.post('/api/auth/refresh', async (req, res) => {
