@@ -9,7 +9,7 @@ const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const Database = require('./data');
 const dbDir = path.join(__dirname, 'database');
-const store = new SQLiteStore({ db: path.join(dbDir, 'db.sqlite') });
+const store = new SQLiteStore({ db: path.join(dbDir, 'sessions.sqlite') });
 const database = new Database(app); // Database is initialized after the app is created
 
 const rootDir = path.join(__dirname, '..'); 
