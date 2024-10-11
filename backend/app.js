@@ -74,11 +74,7 @@ app.get('/api/auth/discord', async (req, res) => {
             const refresh = output.data.refresh_token;
 
             // Store user info in session
-            req.session.user = {
-                id: null, // We'll fetch user info after this
-                access_key: access,
-                refresh_token: refresh
-            };
+           
 
             const userinfo = await axios.get('https://discord.com/api/users/@me', {
                 headers: {
@@ -104,7 +100,7 @@ app.get('/api/auth/discord', async (req, res) => {
                         refresh_token: refresh
                     };
                     await database.addUser(userData);
-                    console.log("Added user");
+                    console.log("Added user",userinfo);
                     req.session.authenticated = true;
                     req.session.user = userData;
                 }
