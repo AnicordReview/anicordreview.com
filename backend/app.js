@@ -138,9 +138,7 @@ app.get('/api/session/check', (req, res) => {
 // Token refresh route
 
 app.get("/", (req, res) => {
-    res.render("index", {
-        user: req.session.user
-    });
+    res.render('index', { user: req.user || { authenticated: false } });
 })
 
 
