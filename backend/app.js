@@ -75,7 +75,7 @@ app.get('/api/auth/discord', async (req, res) => {
 
             // Store user info in session
            
-
+            
             const userinfo = await axios.get('https://discord.com/api/users/@me', {
                 headers: {
                     Authorization: `Bearer ${access}`
@@ -87,7 +87,7 @@ app.get('/api/auth/discord', async (req, res) => {
                     Authorization: `Bearer ${access}`
                 }
             });
-
+            console.log(userinfo)
             const isInGuild = userGuilds.data.some(guild => guild.id === '994071728017899600');
 
             if (isInGuild) {
