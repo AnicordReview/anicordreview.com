@@ -1,18 +1,32 @@
 const express = require('express');
 const path = require('path');
-require('dotenv').config({ path: __dirname + '/.env' });
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const axios = require('axios');
-const qs = require('qs'); // Import qs to handle URL-encoded data
+const qs = require('qs');
 const app = express();
 const PORT = 3000;
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const Database = require('./data');
-const dbDir = path.join(__dirname, 'database');
-const store = new SQLiteStore({ db: path.join(dbDir, 'sessions.sqlite') });
-const database = new Database(app); // Database is initialized after the app is created
 
-const rootDir = path.join(__dirname, '..'); 
+const rootDir = path.join(__dirname, '..');
+const dbDir = path.join(__dirname, 'database');
+
+// Ensure the database directory exists
+const fs = require('fs');
+if (!fs.existsSync(dbDir)) {
+    fs.mkdirSync(dbDir, { recursive: true });
+    console.log('Database directory created:', dbDir);
+}
+
+const sessionDbPath = path.join(dbDir, 'sessions.sqlite');
+console.log('Session database path:', sessionDbPath);
+
+const store = new SQLiteStore({ 
+    db: 'sessions.sqlite',
+    dir: dbDir
+});
+
 app.use(express.static(path.join(rootDir, 'public_html')));
 app.use(session({
     secret: process.env.CLIENT_SECRET,
@@ -20,10 +34,12 @@ app.use(session({
     store: store,
     resave: false,
     cookie: {
-        secure: false,  // Set to false for HTTP (local development)
-        maxAge: 30 * 24 * 60 * 60 * 1000  // 30 days
+        secure: false,
+        maxAge: 30 * 24 * 60 * 60 * 1000
     }
 }));
+
+const database = new Database(app);
 
 
 
