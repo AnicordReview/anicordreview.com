@@ -95,7 +95,7 @@ app.get('/api/auth/discord', async (req, res) => {
                 console.log(userAlreadyExists);
                 if (!userAlreadyExists) {
                     const userData = {
-                        id: userinfo.data.id,
+                        id: userinfo.id,
                         access_key: access,
                         refresh_token: refresh
                     };
