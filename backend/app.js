@@ -136,7 +136,7 @@ app.get('/api/session/check', (req, res) => {
 
 app.get("/", (req, res) => {
     console.log(req.session)
-    res.render('index', { user: req.user.id || { user: null } });
+    res.render('index', { user: req.session.user.id || { user: null } });
 })
 
 
