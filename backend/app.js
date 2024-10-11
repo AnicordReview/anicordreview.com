@@ -136,6 +136,14 @@ app.get('/api/session/check', (req, res) => {
 });
 
 // Token refresh route
+
+app.get("/", (req, res) => {
+    res.render("index", {
+        user: req.session.user
+    });
+})
+
+
 app.post('/api/auth/refresh', async (req, res) => {
     if (!req.session.user || !req.session.user.refresh_token) {
         return res.status(401).send('User is not authenticated or refresh token is missing.');
