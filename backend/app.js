@@ -27,6 +27,7 @@ const store = new SQLiteStore({
     dir: dbDir
 });
 
+app.set("view engine", "ejs");
 app.use(express.static(path.join(rootDir, 'public_html')));
 app.use(session({
     secret: process.env.CLIENT_SECRET,

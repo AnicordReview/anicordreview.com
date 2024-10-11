@@ -19,7 +19,11 @@
                 <li><a href="reviews">Reviews</a></li>
                 <li><a href="about">About</a></li>
                 <li><a href="contact">Contact</a></li>
-                <li><a class="logbut" href="api/auth/discord">Login</a></li>
+                <% if (!user.authenticated) { %>
+                    <li><a class="logbut" href="api/auth/discord">Login</a></li>
+                <% } else { %>
+                    <li><a class="logbut" href="api/auth/logout">Logout</a></li>
+                <% } %>
             </ul>
         </nav>
     </header>
