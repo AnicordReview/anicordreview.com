@@ -40,3 +40,5 @@ build/
 dist/
 public_html/dist/
 public_html/build/
+# backend databases
+backend/database
