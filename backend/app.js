@@ -108,7 +108,8 @@ app.get('/api/auth/discord', async (req, res) => {
                     req.session.authenticated = true;
                     req.session.user = userData;
                 }
-                res.redirect_uri = 'https://anicordreview.com';
+                res.redirect('/');
+            
                 
                                
 
