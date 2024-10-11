@@ -8,15 +8,15 @@ const PORT = 3000;
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const Database = require('./data');
+const store = new session.SQLiteStore({ db: path.join(__dirname, 'database', 'db.sqlite') });
 const database = new Database(app); // Database is initialized after the app is created
 
 const rootDir = path.join(__dirname, '..'); 
 app.use(express.static(path.join(rootDir, 'public_html')));
 app.use(session({
-    store: new SQLiteStore({ db: 'sessions.sqlite', dir: './database' }),
     secret: process.env.CLIENT_SECRET,
-    resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    store: store,
     cookie: {
         secure: false,  // Set to false for HTTP (local development)
         maxAge: 30 * 24 * 60 * 60 * 1000  // 30 days
@@ -86,16 +86,13 @@ app.get('/api/auth/discord', async (req, res) => {
                     };
                     await database.addUser(userData);
                     console.log("Added user");
+                    req.session.authenticated = true;
+                    req.session.user = userData;
                 }
+                res.redirect_uri = 'https://anicordreview.com';
                 
-                // Update session with user ID
-                req.session.user.id = userinfo.data.id;
-                
-                const userFromDB = await database.getUser(userinfo.data.id);
-                console.log("User in DB", userFromDB);
+                               
 
-                // Send user data and access tokens in the response
-                res.send({ user: userinfo.data, access: output.data, message: 'User is in the guild.' });
             } else {
                 res.send({ user: userinfo.data, message: 'User is not in the guild.' });
             }
