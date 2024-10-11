@@ -18,6 +18,7 @@ app.use(session({
     secret: process.env.CLIENT_SECRET,
     saveUninitialized: false,
     store: store,
+    resave: false,
     cookie: {
         secure: false,  // Set to false for HTTP (local development)
         maxAge: 30 * 24 * 60 * 60 * 1000  // 30 days
