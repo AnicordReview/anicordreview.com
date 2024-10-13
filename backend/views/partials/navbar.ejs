@@ -1,0 +1,17 @@
+    <a href="/" class="logo">
+    <img src="anicord.png" alt="Anicord Logo" class="logo-img">
+    <span class="logo-text">Anicord Reviews</span>
+    </a>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="reviews">Reviews</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="contact">Contact</a></li>
+            <% if (!locals.user) { %>
+                <li><a class="logbut" href="https://discord.com/oauth2/authorize?client_id=1291312704887459851&response_type=code&redirect_uri=https%3A%2F%2Fanicordreview.com%2Fapi%2Fauth%2Fdiscord&scope=identify+guilds">Login</a></li>
+            <% } else { %>
+                <li><a class="logbut" href="api/auth/logout">Logout</a></li>
+            <% } %>
+        </ul>
+    </nav>

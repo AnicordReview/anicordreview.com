@@ -135,17 +135,18 @@ app.get('/api/session/check', (req, res) => {
 // Token refresh route
 
 app.get("/", (req, res) => {
-    console.log(req.session)
+    console.log(req.session);
     let sendUser = {
-        user: null
-    }
-    if (req.session.user) {
-        sendUser = {
-            user: req.session.user
+        user: req.session.user || null
+    };
+    res.render('index', sendUser, (err, html) => {
+        if (err) {
+            console.error('Error rendering template:', err);
+            return res.status(500).send('An error occurred');
         }
-    }
-    res.render('index', sendUser);
-})
+        res.send(html);
+    });
+});
 
 
 app.post('/api/auth/refresh', async (req, res) => {
