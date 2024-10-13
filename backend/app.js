@@ -147,6 +147,19 @@ app.get("/", (req, res) => {
         res.send(html);
     });
 });
+app.get("/reviews", (req, res) => {
+    console.log(req.session);
+    let sendUser = {
+        user: req.session.user || null
+    };
+    res.render('reviews', sendUser, (err, html) => {
+        if (err) {
+            console.error('Error rendering template:', err);
+            return res.status(500).send('An error occurred');
+        }
+        res.send(html);
+    });
+});
 
 
 app.post('/api/auth/refresh', async (req, res) => {
