@@ -136,7 +136,15 @@ app.get('/api/session/check', (req, res) => {
 
 app.get("/", (req, res) => {
     console.log(req.session)
-    res.render('index', { user: req.session.user.id || { user: null } });
+    let sendUser = {
+        user: null
+    }
+    if (req.session.user) {
+        sendUser = {
+            user: req.session.user
+        }
+    }
+    res.render('index', sendUser);
 })
 
 
