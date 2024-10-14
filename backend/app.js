@@ -175,7 +175,7 @@ app.get('/reviews/:id', async (req, res) => {
 
         if (!review) {
             // Review not found
-            return res.status(404).render('404', { 
+            return res.status(404).render('error', { 
                 message: 'Review not found',
                 user: req.session.user || null
             });
