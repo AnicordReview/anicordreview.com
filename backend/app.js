@@ -167,10 +167,11 @@ app.get('/reviews/new', (req, res) => {
 })
 app.get('/reviews/:id', async (req, res) => {
     const reviewId = req.params.id;
-    
+    console.log(reviewId)
     try {
         // Fetch the review from the database
         const review = await database.getReview(reviewId);
+        console.log(review)
         let username = await fetch(`https://discord.com/api/users/${review.user_id}`, {
             headers: {
                 Authorization: `Bot ${process.env.TOKEN}`
