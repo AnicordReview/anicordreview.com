@@ -160,7 +160,103 @@ app.get("/reviews", (req, res) => {
         res.send(html);
     });
 });
+app.get('/reviews/new', (req, res) => {
+    res.render('postreview', { 
+        user: req.session.user || null
+    });
+})
+app.get('/reviews/:id', async (req, res) => {
+    const reviewId = req.params.id;
+    
+    try {
+        // Fetch the review from the database
+        const review = await database.getReview(reviewId);
+        let username = await fetch(`https://discord.com/api/users/${review.user_id}`, {
+            headers: {
+                Authorization: `Bot ${process.env.TOKEN}`
+            }
+        })
+        .then(res => res.json())
+        username = res.username;
+        if (!review) {
+            // If review is not found, send a 404 response
+            return res.status(404).render('404', { 
+                message: 'Review not found',
+                user: req.session.user || null
+            });
+        }
+        
+        // Render the review template with the fetched data
+        res.render('review', { 
+            review,
+            user: req.session.user || null
+        });
+    } catch (error) {
+        console.error('Error fetching review:', error);
+        res.status(500).render('error', { 
+            message: 'An error occurred while fetching the review',
+            user: req.session.user || null
+        });
+    }
+});
+// Create a new review
+app.post('/reviews', async (req, res) => {
+    const reviewData = {
+        title: req.body.title,
+        content: req.body.content,
+        rating: req.body.rating,
+        user_id: req.session.user.id
+    };
+    
 
+    try {
+        await database.addReview(reviewData);
+        res.redirect('/reviews');
+    } catch (error) {
+        console.error('Error creating review:', error);
+        res.status(500).render('error', { 
+            message: 'An error occurred while creating the review',
+            user: req.session.user || null
+        });
+    }
+});
+
+// Update an existing review
+app.put('/reviews/:id', async (req, res) => {
+    const reviewId = req.params.id;
+    const reviewData = {
+        title: req.body.title,
+        content: req.body.content,
+        rating: req.body.rating
+    };
+
+    try {
+        await database.updateReview(reviewId, reviewData);
+        res.redirect(`/reviews/${reviewId}`);
+    } catch (error) {
+        console.error('Error updating review:', error);
+        res.status(500).render('error', { 
+            message: 'An error occurred while updating the review',
+            user: req.session.user || null
+        });
+    }
+});
+
+// Delete a review
+app.delete('/reviews/:id', async (req, res) => {
+    const reviewId = req.params.id;
+
+    try {
+        await database.deleteReview(reviewId);
+        res.redirect('/reviews');
+    } catch (error) {
+        console.error('Error deleting review:', error);
+        res.status(500).render('error', { 
+            message: 'An error occurred while deleting the review',
+            user: req.session.user || null
+        });
+    }
+});
 
 app.post('/api/auth/refresh', async (req, res) => {
     if (!req.session.user || !req.session.user.refresh_token) {
