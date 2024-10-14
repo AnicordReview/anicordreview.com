@@ -167,29 +167,40 @@ app.get('/reviews/new', (req, res) => {
 })
 app.get('/reviews/:id', async (req, res) => {
     const reviewId = req.params.id;
-    console.log(reviewId)
+    console.log('Review ID:', reviewId);
+
     try {
-        // Fetch the review from the database
         const review = await database.getReview(reviewId);
-        console.log(review)
-        let username = await fetch(`https://discord.com/api/users/${review.user_id}`, {
-            headers: {
-                Authorization: `Bot ${process.env.TOKEN}`
-            }
-        })
-        .then(res => res.json())
-        username = res.username;
+        console.log('Fetched review:', review);  // Log the review to ensure it's being retrieved
+
         if (!review) {
-            // If review is not found, send a 404 response
+            // Review not found
             return res.status(404).render('404', { 
                 message: 'Review not found',
                 user: req.session.user || null
             });
         }
-        
-        // Render the review template with the fetched data
+
+        if (!review.user_id) {
+            // Log and handle missing user_id
+            console.error('Missing user_id in the review');
+            return res.status(500).render('error', { 
+                message: 'Review is missing associated user data',
+                user: req.session.user || null
+            });
+        }
+
+        let username = await fetch(`https://discord.com/api/users/${review.user_id}`, {
+            headers: {
+                Authorization: `Bot ${process.env.TOKEN}`
+            }
+        }).then(res => res.json());
+
+        username = username.username;  // Make sure to get the username correctly
+
         res.render('review', { 
             review,
+            username,  // Pass the username as well
             user: req.session.user || null
         });
     } catch (error) {
@@ -200,6 +211,8 @@ app.get('/reviews/:id', async (req, res) => {
         });
     }
 });
+
+
 // Create a new review
 app.post('/reviews', async (req, res) => {
     const reviewData = {
