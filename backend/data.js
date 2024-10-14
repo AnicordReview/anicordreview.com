@@ -7,7 +7,7 @@ class Database {
     constructor(app) {
         this.init(app);
     }
-
+//
     async init(app) {
         try {
             const dbDir = path.join(__dirname, 'database');
